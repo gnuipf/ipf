@@ -113,9 +113,6 @@ export default function Database() {
 
   return (
     <div className="db-container">
-      <header className="db-logo-container">
-        <img src={logonv} alt="Nuke DB" />
-      </header>
 
       <p className="intro-text">
         PESQUISE POR ÁLBUM, BANDA OU DATA <br /> OU CLIQUE EM ALL

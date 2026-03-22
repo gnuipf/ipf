@@ -79,7 +79,6 @@ function Carousel({ images }) {
 export default function Store() {
   return (
     <div className="store-container">
-      <h1 className="store-title">INAUDÍVEL STORE</h1>
       <div className="product-grid">
         {productsData.map((prod, index) => (
           <div key={index} className="product-card">

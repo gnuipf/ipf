@@ -8269,5 +8269,6 @@ window.data = [
 { album: "Remagine: The Album", data: "2005-05-21", banda: "After Forever" },
 { album: "Remagine: The Sessions", data: "2005-09-09", banda: "After Forever" },
 { album: "After Forever", data: "2007-04-20", banda: "After Forever" },
+
   
 ];

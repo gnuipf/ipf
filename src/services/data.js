@@ -2783,7 +2783,7 @@ export const dbData = [
 { album: "Firepower", data: "2018-03-07", banda: "Judas Priest" },
 { album: "Invincible Shield", data: "2024-03-06", banda: "Judas Priest" },
 
-{ album: "Fueled By Hate", data: "1900-01-01", banda: "Jungle Rot" },
+{ album: "Fueled By Hate", data: "2004-01-01", banda: "Jungle Rot" },
 { album: "Skin The Living", data: "1996-01-01", banda: "Jungle Rot" },
 { album: "Slaughter the Weak", data: "2004-11-30", banda: "Jungle Rot" },
 { album: "War Zone", data: "2006-06-27", banda: "Jungle Rot" },
@@ -8227,7 +8227,7 @@ export const dbData = [
 { album: "A Dead Poem", data: "1997-07-13", banda: "Rotting Christ" },
 { album: "Sleep Of The Angels", data: "1999-01-04", banda: "Rotting Christ" },
 { album: "Khronos", data: "2000-07-13", banda: "Rotting Christ" },
-{ album: "Genesis", data: "20002-07-13", banda: "Rotting Christ" },
+{ album: "Genesis", data: "2002-07-13", banda: "Rotting Christ" },
 { album: "Sanctus Diavolos", data: "2004-07-13", banda: "Rotting Christ" },
 { album: "Theogonia", data: "2007-01-22", banda: "Rotting Christ" },
 { album: "Aealo", data: "2010-03-12", banda: "Rotting Christ" },

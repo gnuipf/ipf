@@ -1,0 +1,35 @@
+.static-page {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px 48px;
+  color: var(--text-primary);
+}
+
+.static-page-title {
+  font-size: 2rem;
+  color: var(--secondary);
+  margin-bottom: 24px;
+}
+
+.static-page-content {
+  font-family: var(--font-lora);
+  font-size: 1.1rem;
+  line-height: 1.65;
+}
+
+@media (max-width: 600px) {
+  .static-page {
+    margin: 20px auto;
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+    padding-bottom: max(32px, env(safe-area-inset-bottom));
+  }
+
+  .static-page-title {
+    font-size: 1.5rem;
+  }
+
+  .static-page-content {
+    font-size: 1rem;
+  }
+}

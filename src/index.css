@@ -25,6 +25,10 @@ body {
   overflow-x: hidden;
 }
 
+body.nav-menu-open {
+  overflow: hidden;
+}
+
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: rgba(255, 0, 0, 0.12);

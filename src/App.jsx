@@ -3,6 +3,8 @@ import AdminShell from './admin/AdminShell.jsx';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Post from './pages/Post';
+import SobreNos from './pages/SobreNos';
+import SejaRevisor from './pages/SejaRevisor';
 import Store from './pages/Store';
 import Database from './pages/Database';
 import './App.css';
@@ -14,6 +16,8 @@ function App() {
         <Route path="/adminipf/*" element={<AdminShell />} />
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/sobre" element={<SobreNos />} />
+          <Route path="/seja-revisor" element={<SejaRevisor />} />
           <Route path="/post/:slug" element={<Post />} />
           <Route path="/store" element={<Store />} />
           <Route path="/db" element={<Database />} />

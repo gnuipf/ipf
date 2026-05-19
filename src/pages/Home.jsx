@@ -2,15 +2,11 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BannerCarousel from '../components/BannerCarousel';
 import PostCard from '../components/PostCard.jsx';
-import { loadFeaturedPostsFromJson } from '../lib/legacyPosts.js';
 import { POSTS_PAGE_SIZE, fetchPublishedPostsFeed } from '../services/postsApi.js';
 import { POST_CATEGORY_OPTIONS } from '../lib/postCategory.js';
 import './Home.css';
 
 export default function Home() {
-  const [featured, setFeatured] = useState([]);
-  const [featuredError, setFeaturedError] = useState('');
-  const [featuredLoaded, setFeaturedLoaded] = useState(false);
   const [feedPosts, setFeedPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [period, setPeriod] = useState('all');
@@ -27,30 +23,11 @@ export default function Home() {
 
   useEffect(() => {
     let cancelled = false;
-    (async () => {
-      try {
-        const rows = await loadFeaturedPostsFromJson(3);
-        if (!cancelled) setFeatured(rows);
-      } catch (e) {
-        if (!cancelled) setFeaturedError(String(e?.message ?? e));
-      } finally {
-        if (!cancelled) setFeaturedLoaded(true);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!featuredLoaded) return;
-    let cancelled = false;
-    const excludeSlugs = featured.map((f) => f.slug);
 
     (async () => {
       setFeedLoading(true);
       setFeedNotice('');
-      const result = await fetchPublishedPostsFeed(excludeSlugs);
+      const result = await fetchPublishedPostsFeed();
       if (cancelled) return;
       if (!result.ok) {
         setFeedNotice(result.error || 'Não foi possível carregar as postagens.');
@@ -65,7 +42,7 @@ export default function Home() {
     return () => {
       cancelled = true;
     };
-  }, [featuredLoaded, featured]);
+  }, []);
 
   const filteredPosts = useMemo(() => {
     const normalized = searchTerm.trim().toLowerCase();
@@ -134,28 +111,19 @@ export default function Home() {
 
   const showPagination = totalPages > 1 && !feedLoading;
 
+  const activeFilterCount = [
+    searchTerm.trim(),
+    period !== 'all',
+    categoryFilter !== 'all',
+    sortBy !== 'recent',
+  ].filter(Boolean).length;
+
   return (
     <>
       <BannerCarousel />
 
-      <section className="posts posts--featured" aria-label="Destaques">
-        {featuredError ? <p className="home-notice">{featuredError}</p> : null}
-        {featured.map((post) => (
-          <PostCard key={post.slug} post={post} onSelect={(slug) => navigate(`/post/${slug}`)} />
-        ))}
-      </section>
-
-      <section
-        ref={feedSectionRef}
-        className="posts-feed"
-        id="posts-feed"
-        aria-label="Postagens"
-      >
-        <div className="posts-feed-divider" aria-hidden="true" />
-        <h2 className="posts-feed-title cinzel">Postagens</h2>
-        {!featuredLoaded ? (
-          <p className="home-feed-loading">A carregar…</p>
-        ) : feedLoading ? (
+      <section ref={feedSectionRef} className="posts-feed" id="posts-feed" aria-label="Postagens">
+        {feedLoading ? (
           <p className="home-feed-loading">A carregar…</p>
         ) : (
           <>
@@ -170,14 +138,17 @@ export default function Home() {
                     aria-controls="home-post-filters"
                     onClick={() => setFiltersOpen((open) => !open)}
                   >
-                    Filtrar postagens
+                    {filtersOpen ? 'Ocultar filtros' : 'Filtrar postagens'}
+                    {activeFilterCount > 0 ? (
+                      <span className="home-filters-badge">{activeFilterCount}</span>
+                    ) : null}
                   </button>
                 </div>
                 <div
                   id="home-post-filters"
-                  className={`home-filters ${filtersOpen ? 'is-open' : ''}`}
+                  className={`home-filters${filtersOpen ? ' is-open' : ''}`}
                 >
-                  <label className="home-filter-field">
+                  <label className="home-filter-field home-filter-field--search">
                     <span className="home-filter-label">Buscar</span>
                     <input
                       type="search"
@@ -218,11 +189,21 @@ export default function Home() {
                       ))}
                     </select>
                   </label>
-                  <button type="button" className="home-filter-clear" onClick={clearFilters}>
-                    Limpar filtros
-                  </button>
+                  <div className="home-filters-actions">
+                    <button type="button" className="home-filter-clear" onClick={clearFilters}>
+                      Limpar filtros
+                    </button>
+                  </div>
                 </div>
               </>
+            ) : null}
+            {!feedNotice && !feedLoading ? (
+              <p className="home-feed-meta" aria-live="polite">
+                {filteredPosts.length === 0
+                  ? 'Nenhum resultado'
+                  : `${filteredPosts.length} ${filteredPosts.length === 1 ? 'postagem' : 'postagens'}`}
+                {activeFilterCount > 0 ? ' com os filtros aplicados' : ''}
+              </p>
             ) : null}
             {!feedNotice && pagedPosts.length === 0 ? (
               <p className="home-feed-empty">Nenhuma postagem encontrada para os filtros selecionados.</p>

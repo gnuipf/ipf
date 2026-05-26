@@ -115,6 +115,13 @@
   min-height: 220px;
 }
 
+.admin-editor-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
 .admin-inline-btn {
   align-self: flex-start;
   padding: 6px 12px;

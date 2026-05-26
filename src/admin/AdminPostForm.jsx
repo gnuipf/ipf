@@ -96,6 +96,58 @@ export default function AdminPostForm() {
     });
   }
 
+  function insertMarkdownImage() {
+    const ta = contentRef.current;
+    const url = window.prompt('URL da imagem');
+    if (!url || !url.trim()) return;
+    const trimmed = url.trim();
+    if (!ta) {
+      setContent((c) => `${c}![imagem](${trimmed})`);
+      return;
+    }
+    const start = ta.selectionStart;
+    const end = ta.selectionEnd;
+    const sel = content.slice(start, end).trim() || 'imagem';
+    const insertion = `![${sel}](${trimmed})`;
+    const next = content.slice(0, start) + insertion + content.slice(end);
+    setContent(next);
+    requestAnimationFrame(() => {
+      try {
+        ta.focus();
+        const pos = start + insertion.length;
+        ta.setSelectionRange(pos, pos);
+      } catch {
+        /* ignore */
+      }
+    });
+  }
+
+  function insertMarkdownVideo() {
+    const ta = contentRef.current;
+    const url = window.prompt('URL do vídeo');
+    if (!url || !url.trim()) return;
+    const trimmed = url.trim();
+    if (!ta) {
+      setContent((c) => `${c}\n\n[vídeo](${trimmed})\n\n`);
+      return;
+    }
+    const start = ta.selectionStart;
+    const end = ta.selectionEnd;
+    const sel = content.slice(start, end).trim() || 'vídeo';
+    const insertion = `\n\n[${sel}](${trimmed})\n\n`;
+    const next = content.slice(0, start) + insertion + content.slice(end);
+    setContent(next);
+    requestAnimationFrame(() => {
+      try {
+        ta.focus();
+        const pos = start + insertion.length;
+        ta.setSelectionRange(pos, pos);
+      } catch {
+        /* ignore */
+      }
+    });
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     setError('');
@@ -200,11 +252,17 @@ export default function AdminPostForm() {
         Conteúdo
         <p className="admin-muted" style={{ margin: '0 0 6px', fontSize: '0.85rem' }}>
           Markdown: uma quebra de linha vira nova linha no site; duas linhas em branco separam parágrafos. Use o
-          botão para hiperligações.
+          botão para hiperligações, imagens e vídeos externos.
         </p>
-        <div style={{ marginBottom: '8px' }}>
+        <div className="admin-editor-toolbar">
           <button type="button" className="admin-inline-btn" onClick={insertMarkdownLink}>
             Inserir hiperligação
+          </button>
+          <button type="button" className="admin-inline-btn" onClick={insertMarkdownImage}>
+            Inserir imagem
+          </button>
+          <button type="button" className="admin-inline-btn" onClick={insertMarkdownVideo}>
+            Inserir vídeo
           </button>
         </div>
         <textarea

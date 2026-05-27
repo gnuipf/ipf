@@ -5,7 +5,6 @@ import Home from './pages/Home';
 import Post from './pages/Post';
 import SobreNos from './pages/SobreNos';
 import SejaRevisor from './pages/SejaRevisor';
-import Store from './pages/Store';
 import Database from './pages/Database';
 import './App.css';
 
@@ -19,7 +18,6 @@ function App() {
           <Route path="/sobre" element={<SobreNos />} />
           <Route path="/seja-revisor" element={<SejaRevisor />} />
           <Route path="/post/:slug" element={<Post />} />
-          <Route path="/store" element={<Store />} />
           <Route path="/db" element={<Database />} />
         </Route>
       </Routes>

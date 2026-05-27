@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import logoStore from '../assets/img/logo.png';
 import logoHome from '../assets/img/inau-bg.png';
 import logoDb from '../assets/img/nuke-bg.png';
 import './Navbar.css';
@@ -9,33 +8,22 @@ const NAV_ITEMS = [
   { path: '/', label: 'INÍCIO' },
   { path: '/sobre', label: 'SOBRE NÓS' },
   { path: '/seja-revisor', label: 'SEJA REVISOR' },
-  { path: '/store', label: 'STORE' },
   { path: '/db', label: 'NUKE DB' },
 ];
 
 export default function Navbar() {
   const location = useLocation();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpenPath, setMenuOpenPath] = useState(null);
+  const menuOpen = menuOpenPath === location.pathname;
 
   const getLinkClass = (path) =>
     location.pathname === path ? 'nav-link active' : 'nav-link';
 
-  const getLogo = () => {
-    switch (location.pathname) {
-      case '/store':
-        return logoStore;
-      case '/db':
-        return logoDb;
-      default:
-        return logoHome;
-    }
-  };
+  const getLogo = () => (location.pathname === '/db' ? logoDb : logoHome);
 
-  const closeMenu = () => setMenuOpen(false);
-
-  useEffect(() => {
-    closeMenu();
-  }, [location.pathname]);
+  const closeMenu = () => setMenuOpenPath(null);
+  const toggleMenu = () =>
+    setMenuOpenPath(menuOpen ? null : location.pathname);
 
   useEffect(() => {
     document.body.classList.toggle('nav-menu-open', menuOpen);
@@ -72,7 +60,7 @@ export default function Navbar() {
           aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
           aria-expanded={menuOpen}
           aria-controls="nav-mobile-menu"
-          onClick={() => setMenuOpen((open) => !open)}
+          onClick={toggleMenu}
         >
           <span className="nav-hamburger-bar" aria-hidden="true" />
           <span className="nav-hamburger-bar" aria-hidden="true" />

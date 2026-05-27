@@ -20,6 +20,9 @@ dist-ssr
 # Supabase CLI cache
 supabase/.temp/
 
+# Documentação local (não versionar)
+documentação/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -12,6 +12,13 @@ Permitir que o visitante filtre o catálogo por tipo de trabalho (ex.: Álbum, E
 |------|-----------|-------|
 | `/db` | Pública | Catálogo navegável com busca, classificação e paginação |
 
+## Fonte de dados (runtime)
+
+- O catálogo é servido em runtime a partir de **`src/services/data.js`**, exportando `dbData` (array normalizado a partir de `RAW_DB_DATA`).
+- A UI consome estes dados via `src/pages/Database.jsx`.
+- Pastas legadas na raiz do repositório (ex.: `ipf_db-main/`, `inaudivel_por_favor-main/nuke_db/`) **não** alimentam a aplicação React; são candidatas a remoção em ciclos de limpeza, **desde que** `src/services/data.js` seja preservado.
+- Scripts de manutenção: `scripts/rename-album-to-titulo-in-data.mjs` opera sobre `src/services/data.js`.
+
 ## Modelo de dados (conceitual)
 
 Cada registro do catálogo deve conter, no mínimo:

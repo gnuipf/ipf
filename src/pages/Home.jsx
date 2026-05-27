@@ -15,8 +15,8 @@ export default function Home() {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [feedNotice, setFeedNotice] = useState('');
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const [feedLoading, setFeedLoading] = useState(true);
+  const [filterAnchorMs, setFilterAnchorMs] = useState(() => Date.now());
   const feedSectionRef = useRef(null);
   const skipScrollRef = useRef(true);
   const navigate = useNavigate();
@@ -32,7 +32,6 @@ export default function Home() {
       if (!result.ok) {
         setFeedNotice(result.error || 'Não foi possível carregar as postagens.');
         setFeedPosts([]);
-        setTotalPages(1);
         setFeedLoading(false);
         return;
       }
@@ -46,12 +45,11 @@ export default function Home() {
 
   const filteredPosts = useMemo(() => {
     const normalized = searchTerm.trim().toLowerCase();
-    const now = Date.now();
     const minTs =
       period === 'last30'
-        ? now - 30 * 24 * 60 * 60 * 1000
+        ? filterAnchorMs - 30 * 24 * 60 * 60 * 1000
         : period === 'currentYear'
-          ? new Date(new Date().getFullYear(), 0, 1).getTime()
+          ? new Date(new Date(filterAnchorMs).getFullYear(), 0, 1).getTime()
           : 0;
 
     const filtered = feedPosts.filter((post) => {
@@ -77,28 +75,23 @@ export default function Home() {
       const safeB = Number.isNaN(bTs) ? 0 : bTs;
       return (safeA - safeB) * direction;
     });
-  }, [feedPosts, searchTerm, period, sortBy, categoryFilter]);
+  }, [feedPosts, searchTerm, period, sortBy, categoryFilter, filterAnchorMs]);
 
-  useEffect(() => {
-    setPage(1);
-  }, [searchTerm, period, categoryFilter]);
-
-  useEffect(() => {
-    const nextTotalPages = Math.max(1, Math.ceil(filteredPosts.length / POSTS_PAGE_SIZE));
-    setTotalPages(nextTotalPages);
-    setPage((current) => Math.min(current, nextTotalPages));
-  }, [filteredPosts]);
+  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / POSTS_PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
 
   const pagedPosts = useMemo(() => {
-    const start = (page - 1) * POSTS_PAGE_SIZE;
+    const start = (currentPage - 1) * POSTS_PAGE_SIZE;
     return filteredPosts.slice(start, start + POSTS_PAGE_SIZE);
-  }, [filteredPosts, page]);
+  }, [filteredPosts, currentPage]);
 
   function clearFilters() {
     setSearchTerm('');
     setPeriod('all');
     setSortBy('recent');
     setCategoryFilter('all');
+    setFilterAnchorMs(Date.now());
+    setPage(1);
   }
 
   useEffect(() => {
@@ -107,7 +100,7 @@ export default function Home() {
       return;
     }
     feedSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, [page]);
+  }, [currentPage]);
 
   const showPagination = totalPages > 1 && !feedLoading;
 
@@ -153,20 +146,36 @@ export default function Home() {
                     <input
                       type="search"
                       value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
+                      onChange={(e) => {
+                        setSearchTerm(e.target.value);
+                        setPage(1);
+                      }}
                       placeholder="Digite título ou resumo..."
                     />
                   </label>
                   <label className="home-filter-field">
                     <span className="home-filter-label">Ordenação</span>
-                    <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                    <select
+                      value={sortBy}
+                      onChange={(e) => {
+                        setSortBy(e.target.value);
+                        setPage(1);
+                      }}
+                    >
                       <option value="recent">Mais recentes</option>
                       <option value="oldest">Mais antigos</option>
                     </select>
                   </label>
                   <label className="home-filter-field">
                     <span className="home-filter-label">Período</span>
-                    <select value={period} onChange={(e) => setPeriod(e.target.value)}>
+                    <select
+                      value={period}
+                      onChange={(e) => {
+                        setPeriod(e.target.value);
+                        setFilterAnchorMs(Date.now());
+                        setPage(1);
+                      }}
+                    >
                       <option value="all">Todos</option>
                       <option value="last30">Últimos 30 dias</option>
                       <option value="currentYear">Ano atual</option>
@@ -223,18 +232,18 @@ export default function Home() {
                 <button
                   type="button"
                   className="home-pagination-btn"
-                  disabled={page <= 1}
+                  disabled={currentPage <= 1}
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                 >
                   Anterior
                 </button>
                 <span className="home-pagination-info">
-                  Página {page} de {totalPages}
+                  Página {currentPage} de {totalPages}
                 </span>
                 <button
                   type="button"
                   className="home-pagination-btn"
-                  disabled={page >= totalPages}
+                  disabled={currentPage >= totalPages}
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 >
                   Seguinte

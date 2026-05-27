@@ -10,6 +10,10 @@ Este diretório é a fonte de verdade para o comportamento pretendido do produto
 | [public-site](features/public-site/readme.md) | Casca pública da home: destaques fixos, feed de postagens por recência, filtros e paginação |
 | [nuke-db](features/nuke-db/readme.md) | Catálogo público em `/db` com busca, classificação por tipo de trabalho e paginação |
 
+## Inventário operacional
+
+- Estado funcional resumido (o que funciona, o que é parcial, o que foi removido): [`docs/STATUS.md`](../docs/STATUS.md).
+
 ## Convenções
 
 - Requisitos de negócio e regras de dados vivem em `spec/features/<feature>/readme.md`.

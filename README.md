@@ -4,37 +4,39 @@ Este projeto é uma refatoração completa da plataforma **Inaudível Por Favor*
 
 ## 🚀 Tecnologias Utilizadas
 
-- **React 18**: Biblioteca principal para construção da interface.
+- **React 19**: Biblioteca principal para construção da interface.
 - **Vite**: Ferramenta de build ultra-rápida.
 - **React Router Dom**: Gerenciamento de rotas (SPA).
 - **Lucide React**: Biblioteca de ícones.
 - **CSS Vanilla**: Estilização customizada e responsiva.
+- **Supabase**: Auth, posts e storage (produção).
 
 ## 📁 Estrutura do Projeto
 
 ```text
 src/
- ├── assets/        # Imagens e logos dinâmicos
+ ├── assets/        # Imagens e logos
  ├── components/    # Componentes globais (Navbar, Layout, Footer)
- ├── pages/         # Páginas da aplicação (Home, Store, Database, Post)
- ├── services/      # Lógica de dados (Nuke DB)
- └── utils/         # Funções auxiliares
+ ├── pages/         # Páginas (Home, Database, Post, estáticas)
+ ├── services/      # Dados (NUKE DB em data.js, postsApi)
+ ├── admin/         # Painel /adminipf
+ └── lib/           # Utilitários (Supabase, slugify, sanitize)
+spec/               # Especificações canónicas
+docs/STATUS.md      # Inventário funcional
 ```
 
-## ✨ Principais Melhorias
+## ✨ Principais áreas
 
-1. **Nuke DB (Database):**
-   - Isolamento de estado para evitar conflitos de variáveis globais.
-   - Algoritmo de busca e ordenação otimizado com `useMemo`.
-   - Layout de **Cards Responsivos** para dispositivos móveis.
-   
-2. **Loja (Store):**
-   - Carrossel de imagens nativo em React com controle de estado.
-   - Grid adaptativo e integração direta com WhatsApp.
+1. **NUKE DB (`/db`):**
+   - Catálogo em `src/services/data.js`.
+   - Busca, filtro por tipo de obra, paginação e ordenação.
+
+2. **Postagens (home + admin):**
+   - Feed público com filtros; painel em `/adminipf` (URL directa, sem link no menu).
 
 3. **Navegação SPA:**
-   - Troca de páginas instantânea sem recarregar o navegador.
-   - Logos dinâmicas na Navbar que mudam conforme a seção ativa.
+   - Menu: INÍCIO, SOBRE NÓS, SEJA REVISOR, NUKE DB.
+   - Logo dinâmico na Navbar (home vs `/db`).
 
 ## 🛠️ Como Executar Localmente
 
@@ -43,17 +45,21 @@ src/
 
 ### Instalação
 ```bash
-# Instalar dependências
 npm install
-
-# Iniciar servidor de desenvolvimento
+cp .env.example .env   # preencher VITE_SUPABASE_* se usar admin/posts
 npm run dev
 ```
 
 ### Build de Produção
 ```bash
-# Gerar a pasta dist otimizada
 npm run build
+npm run preview
+```
+
+### Testes e lint
+```bash
+npm run lint
+npm run test
 ```
 
 ## 📜 Licença

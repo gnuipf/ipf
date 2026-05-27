@@ -2,6 +2,14 @@
 
 Complementa a [feature admin-posts](../admin-posts/readme.md) (dados e painel). Descreve o estado alvo de experiência pública da home: três destaques fixos, feed de postagens com ordenação por recência, filtros e paginação.
 
+## Navegação pública
+
+- Menu principal (desktop e mobile): **INÍCIO** (`/`), **SOBRE NÓS** (`/sobre`), **SEJA REVISOR** (`/seja-revisor`), **NUKE DB** (`/db`).
+- **Não existe loja** no produto: sem item STORE no header e sem rota `/store`.
+- Páginas estáticas adicionais: `/sobre`, `/seja-revisor` (conteúdo em `src/content/staticPages.js` e páginas dedicadas).
+- Detalhe de postagem: `/post/:slug`.
+- O painel admin (`/adminipf`) **não** aparece no menu público.
+
 ## Página inicial (`/`)
 
 ### Seção de destaques (hero)

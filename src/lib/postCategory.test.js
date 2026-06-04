@@ -5,6 +5,7 @@ describe('postCategory', () => {
   it('normalizes unknown to standard', () => {
     expect(normalizePostCategory('nope')).toBe('standard');
     expect(normalizePostCategory('')).toBe('standard');
+    expect(normalizePostCategory('live')).toBe('standard');
   });
 
   it('accepts launch_review', () => {

@@ -1,7 +1,6 @@
 /** Valores persistidos em `posts.category` (Supabase check). */
 export const POST_CATEGORY_VALUES = [
   'standard',
-  'live',
   'launch_review',
   'classic_review',
   'event_coverage',
@@ -13,7 +12,6 @@ export const POST_CATEGORY_VALUE_SET = new Set(POST_CATEGORY_VALUES);
 /** Opções para selects (valor → rótulo em pt-BR). */
 export const POST_CATEGORY_OPTIONS = [
   { value: 'standard', label: 'Padrão' },
-  { value: 'live', label: 'LIVE' },
   { value: 'launch_review', label: 'Review de lançamento' },
   { value: 'classic_review', label: 'Review de clássico' },
   { value: 'event_coverage', label: 'Cobertura de eventos' },

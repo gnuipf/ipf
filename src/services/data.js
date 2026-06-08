@@ -2398,7 +2398,7 @@ const RAW_DB_DATA = [
 { titulo: "Bad Life", data: "2022-04-21", banda: "Bring Me the Horizon", work_type: "single" },
 { titulo: "Fallout", data: "2022-04-01", banda: "Bring Me the Horizon", work_type: "single" },
 { titulo: "Moon Over the Castle (from GRAN TURISMO 7)", data: "2022-02-04", banda: "Bring Me the Horizon", work_type: "single" },
-{ titulo: "DiE4u (six impala "DiE6u" Remix)", data: "2021-12-17", banda: "Bring Me the Horizon", work_type: "single" },
+{ titulo: "DiE4u (six impala \"DiE6u\" Remix)", data: "2021-12-17", banda: "Bring Me the Horizon", work_type: "single" },
 { titulo: "VAMPIR", data: "2021-12-10", banda: "Bring Me the Horizon", work_type: "single" },
 { titulo: "DiE4u", data: "2021-09-16", banda: "Bring Me the Horizon", work_type: "single" },
 { titulo: "Shadow Moses", data: "2021-04-01", banda: "Bring Me the Horizon", work_type: "single" },

@@ -3098,7 +3098,7 @@ const RAW_DB_DATA = [
 { titulo: "Tunnel Lights", data: "2023-11-29", banda: "Chelsea Wolfe", work_type: "single" },
 { titulo: "Whispers In The Echo Chamber", data: "2023-10-24", banda: "Chelsea Wolfe", work_type: "single" },
 { titulo: "Dusk", data: "2023-09-20", banda: "Chelsea Wolfe", work_type: "single" },
-{ titulo: "Oui Oui Marie (From the Original Motion Picture "X")", data: "2022-03-11", banda: "Chelsea Wolfe", work_type: "single" },
+{ titulo: "Oui Oui Marie (From the Original Motion Picture \"X\")", data: "2022-03-11", banda: "Chelsea Wolfe", work_type: "single" },
 { titulo: "Coil", data: "2021-11-03", banda: "Chelsea Wolfe", work_type: "single" },
 { titulo: "Blood Moon", data: "2021-09-28", banda: "Chelsea Wolfe", work_type: "single" },
 { titulo: "Woodstock / Green Altar", data: "2021-09-21", banda: "Chelsea Wolfe", work_type: "single" },

@@ -39,7 +39,7 @@ const RAW_DB_DATA = [
   
   { titulo: "Good to Go", data: "1999-06-22", banda: "7 Seconds", work_type: "album" },
   { titulo: "Take It Back, Take It On, Take It Over!", data: "2005-01-25", banda: "7 Seconds", work_type: "album" },
-  { titulo: "Scream Real Loud", data: "2000-01-01", banda: "7 Seconds", work_type: "live" },
+  { titulo: "Scream Real Loud?", data: "2000-01-01", banda: "7 Seconds", work_type: "live" },
   
   { titulo: "And Their Name Was Treason", data: "2005-05-10", banda: "A Day To Remember", work_type: "album" },
   { titulo: "For Those Who Have Heart", data: "2007-01-23", banda: "A Day To Remember", work_type: "album" },
